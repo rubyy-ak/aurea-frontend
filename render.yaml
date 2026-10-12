@@ -1,14 +1,14 @@
 # Render Blueprint fürs Frontend: statische Vue-Seite.
 services:
   - type: web
-    name: aurea-frontend
+    name: aurea-parfum
     runtime: static
     buildCommand: npm ci && npm run build
     staticPublishPath: dist
     autoDeployTrigger: checksPass # erst deployen, wenn die GitHub-Actions-Tests grün sind
     envVars:
       - key: VITE_API_URL
-        sync: false # URL des Backends, z. B. https://aurea-backend.onrender.com
+        value: https://aurea-parfum-api.onrender.com # URL des Backends (kein Geheimnis)
     routes:
       - type: rewrite
         source: /*
