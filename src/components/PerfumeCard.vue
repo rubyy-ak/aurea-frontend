@@ -1,0 +1,104 @@
+<script setup>
+import { computed } from 'vue'
+import { CONCENTRATIONS, formatEuro } from '../labels'
+import FamilyBadge from './FamilyBadge.vue'
+import StarRating from './StarRating.vue'
+import BottleArt from './BottleArt.vue'
+
+const props = defineProps({ perfume: { type: Object, required: true } })
+const emit = defineEmits(['toggle-favorite', 'wear', 'purchase'])
+
+const isWish = computed(() => props.perfume.status === 'WISHLIST')
+const concentration = computed(() => CONCENTRATIONS[props.perfume.concentration]?.short)
+</script>
+
+<template>
+  <article class="perfume-card card">
+    <button
+      class="fav"
+      :class="{ active: perfume.favorite }"
+      :aria-label="perfume.favorite ? 'Aus Favoriten entfernen' : 'Als Favorit markieren'"
+      @click="emit('toggle-favorite', perfume)"
+    >
+      {{ perfume.favorite ? '♥' : '♡' }}
+    </button>
+
+    <RouterLink :to="`/perfumes/${perfume.id}`" class="body">
+      <div class="art">
+        <BottleArt :family="perfume.family" :initial="perfume.brand.charAt(0)" />
+      </div>
+      <p class="eyebrow brand">{{ perfume.brand }}</p>
+      <h3 class="name">{{ perfume.name }}</h3>
+      <p class="meta muted">
+        {{ concentration }}<template v-if="perfume.sizeMl"> · {{ perfume.sizeMl }} ml</template>
+        <template v-if="perfume.priceEur !== null"> · {{ formatEuro(perfume.priceEur) }}</template>
+      </p>
+      <div class="row">
+        <FamilyBadge :family="perfume.family" />
+        <StarRating v-if="perfume.rating" :model-value="perfume.rating" readonly />
+      </div>
+    </RouterLink>
+
+    <footer class="actions">
+      <template v-if="isWish">
+        <button class="btn btn-ghost btn-sm" @click="emit('purchase', perfume)">Gekauft ✓</button>
+      </template>
+      <template v-else>
+        <span class="worn muted">{{ perfume.wearCount }}× getragen</span>
+        <button class="btn btn-ghost btn-sm" @click="emit('wear', perfume)">Heute getragen</button>
+      </template>
+    </footer>
+  </article>
+</template>
+
+<style scoped>
+.perfume-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+.perfume-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+.body { display: block; padding: 24px 24px 16px; flex: 1; }
+.art {
+  height: 150px;
+  margin: -24px -24px 20px;
+  padding: 18px 0 10px;
+  background: linear-gradient(180deg, #f3ece1 0%, var(--paper) 100%);
+  display: flex;
+  justify-content: center;
+}
+.art :deep(svg) { width: auto; }
+.brand { margin-bottom: 4px; }
+.name { font-size: 1.55rem; margin-bottom: 6px; }
+.meta { font-size: 0.86rem; margin-bottom: 14px; }
+.row { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 14px 24px;
+  border-top: 1px solid var(--line);
+}
+.actions .btn:only-child { margin-left: auto; }
+.worn { font-size: 0.82rem; white-space: nowrap; }
+.fav {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 1;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--muted);
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, transform 0.2s;
+}
+.fav:hover { transform: scale(1.08); border-color: var(--rose); }
+.fav.active { color: var(--rose); border-color: var(--rose); }
+</style>
