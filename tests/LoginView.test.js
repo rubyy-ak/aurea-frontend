@@ -22,12 +22,24 @@ describe('LoginView', () => {
   })
 
   it('zeigt Validierungsfehler ohne Server-Anfrage', async () => {
-    const fetch = vi.fn()
+    const fetch = vi.fn().mockResolvedValue({ ok: true, status: 200, json: () => Promise.resolve([]) })
     vi.stubGlobal('fetch', fetch)
     const { wrapper } = setup()
     await wrapper.find('form').trigger('submit')
     expect(wrapper.text()).toContain('Bitte einen Benutzernamen angeben.')
-    expect(fetch).not.toHaveBeenCalled()
+    const authCalls = fetch.mock.calls.filter(([url]) => url.toString().includes('/api/auth'))
+    expect(authCalls).toHaveLength(0)
+  })
+
+  it('zeigt die öffentlichen Beispiel-Parfüms', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: () => Promise.resolve([{ id: 1, name: 'Santal 33', brand: 'Le Labo' }]),
+    }))
+    const { wrapper } = setup()
+    await flushPromises()
+    expect(wrapper.find('.examples').text()).toContain('Santal 33')
   })
 
   it('wechselt in den Registrierungsmodus', async () => {

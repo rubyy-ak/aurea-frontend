@@ -1,7 +1,7 @@
 <script setup>
-import { reactive, ref, computed } from 'vue'
+import { reactive, ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { authApi } from '../api'
+import { authApi, exampleApi } from '../api'
 import { setSession } from '../auth'
 import { validateCredentials } from '../validation'
 
@@ -15,6 +15,16 @@ const message = ref('')
 const busy = ref(false)
 
 const isRegister = computed(() => mode.value === 'register')
+
+// Öffentliche Beispiel-Parfüms als kleiner Vorgeschmack – Fehler sind hier unkritisch.
+const examples = ref([])
+onMounted(async () => {
+  try {
+    examples.value = await exampleApi.list()
+  } catch {
+    examples.value = []
+  }
+})
 
 function switchMode() {
   mode.value = isRegister.value ? 'login' : 'register'
@@ -55,6 +65,15 @@ async function submit() {
           Deine Flakons, deine Wunschliste, deine Lieblingsdüfte – an einem Ort.
           Und jeden Morgen ein Vorschlag, der zum Wetter passt.
         </p>
+        <div v-if="examples.length" class="examples">
+          <p class="eyebrow">Aus dem Beispielregal</p>
+          <ul>
+            <li v-for="perfume in examples" :key="perfume.id">
+              <span class="ex-name">{{ perfume.name }}</span>
+              <span class="ex-brand">{{ perfume.brand }}</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </aside>
 
@@ -116,6 +135,17 @@ async function submit() {
 .logo { font-size: clamp(4rem, 9vw, 6.5rem); font-weight: 400; letter-spacing: 0.08em; margin-top: 12px; }
 .tagline { font-family: var(--font-display); font-style: italic; font-size: 1.7rem; }
 .sub { margin-top: 18px; color: #cfc4b6; }
+.examples { margin-top: 40px; }
+.examples ul { list-style: none; padding: 0; margin: 12px 0 0; border-top: 1px solid rgba(255, 255, 255, 0.12); }
+.examples li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+.ex-name { font-family: var(--font-display); font-style: italic; font-size: 1.15rem; }
+.ex-brand { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: #cfc4b6; align-self: center; text-align: right; }
 .panel { display: flex; align-items: center; justify-content: center; padding: 48px 24px; }
 .form { width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 20px; }
 .form h2 { font-size: 2.4rem; margin-top: -10px; }

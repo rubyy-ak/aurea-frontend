@@ -56,6 +56,10 @@ export const authApi = {
   logout: () => request('/api/auth/logout', { method: 'POST' }),
 }
 
+export const exampleApi = {
+  list: () => request('/api/examples'),
+}
+
 export const perfumeApi = {
   list: (params) => request('/api/perfumes', { params }),
   get: (id) => request(`/api/perfumes/${id}`),
