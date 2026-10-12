@@ -10,13 +10,23 @@ Vue-3-Oberfläche für **Auréa**, eine Web-App für die eigene Parfümsammlung:
 
 ```
 src/
-  views/       Seiten (Login, Start, Sammlung/Wunschliste, Formular, Detail)
-  components/  Eigene Komponenten, u. a. PerfumeList (rendert die Parfüms mit v-for),
-               PerfumeCard, PerfumeFilters, StarRating, SuggestionCard
-  api.js       Zugriff auf die REST-API des Backends
-  validation.js  Eingabeprüfung im Browser
-tests/         Vitest-Tests
+  views/          Seiten: Login, Start, Sammlung/Wunschliste, Formular, Detail
+  components/
+    common/       Allgemeine Bausteine: ConfirmDialog, EmptyState, Toast, StarRating
+    layout/       AppHeader (Navigation)
+    perfume/      PerfumeList (rendert die Parfüms mit v-for), PerfumeCard,
+                  PerfumeFilters, FamilyBadge, BottleArt
+    home/         SuggestionCard (Duft für heute)
+  services/       apiClient (fetch + Fehlerbehandlung), authService, perfumeService,
+                  exampleService, weatherService (Open-Meteo)
+  stores/         session (Login-Zustand)
+  composables/    usePerfumeActions
+  utils/          labels (Texte, Formatierung), validation (Eingabeprüfung)
+  router/         Routen und Login-Schutz
+tests/            Vitest-Tests, gegliedert wie src/
 ```
+
+Imports nutzen den Kurzpfad `@/` für `src/`, z. B. `import { perfumeApi } from '@/services/perfumeService'`.
 
 ## Lokal starten
 

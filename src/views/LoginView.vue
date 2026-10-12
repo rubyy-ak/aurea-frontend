@@ -1,9 +1,10 @@
 <script setup>
 import { reactive, ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { authApi, exampleApi } from '../api'
-import { setSession } from '../auth'
-import { validateCredentials } from '../validation'
+import { authApi } from '@/services/authService'
+import { exampleApi } from '@/services/exampleService'
+import { setSession } from '@/stores/session'
+import { validateCredentials } from '@/utils/validation'
 
 const router = useRouter()
 const route = useRoute()

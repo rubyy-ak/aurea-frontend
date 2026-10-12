@@ -1,14 +1,14 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { perfumeApi } from '../api'
-import { concentrationLabel, formatEuro } from '../labels'
-import { usePerfumeActions } from '../usePerfumeActions'
-import FamilyBadge from '../components/FamilyBadge.vue'
-import StarRating from '../components/StarRating.vue'
-import BottleArt from '../components/BottleArt.vue'
-import ConfirmDialog from '../components/ConfirmDialog.vue'
-import Toast from '../components/Toast.vue'
+import { perfumeApi } from '@/services/perfumeService'
+import { concentrationLabel, formatEuro } from '@/utils/labels'
+import { usePerfumeActions } from '@/composables/usePerfumeActions'
+import FamilyBadge from '@/components/perfume/FamilyBadge.vue'
+import StarRating from '@/components/common/StarRating.vue'
+import BottleArt from '@/components/perfume/BottleArt.vue'
+import ConfirmDialog from '@/components/common/ConfirmDialog.vue'
+import Toast from '@/components/common/Toast.vue'
 
 const props = defineProps({ id: { type: String, required: true } })
 const router = useRouter()

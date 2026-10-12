@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { session, clearSession } from '../auth'
-import { authApi } from '../api'
+import { session, clearSession } from '@/stores/session'
+import { authApi } from '@/services/authService'
 
 const router = useRouter()
 const menuOpen = ref(false)

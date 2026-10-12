@@ -1,10 +1,10 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { perfumeApi } from '../api'
-import { FAMILIES, CONCENTRATIONS } from '../labels'
-import { validatePerfume } from '../validation'
-import StarRating from '../components/StarRating.vue'
+import { perfumeApi } from '@/services/perfumeService'
+import { FAMILIES, CONCENTRATIONS } from '@/utils/labels'
+import { validatePerfume } from '@/utils/validation'
+import StarRating from '@/components/common/StarRating.vue'
 
 const props = defineProps({ id: { type: String, default: null } })
 const route = useRoute()

@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import { perfumeApi } from './api'
+import { perfumeApi } from '@/services/perfumeService'
 
 /**
  * "Gekauft"-Aktion für Wunschlisten-Parfüms inkl. kurzer Rückmeldung.

@@ -1,5 +1,5 @@
 <script setup>
-import { FAMILIES, SORTS } from '../labels'
+import { FAMILIES, SORTS } from '@/utils/labels'
 
 const props = defineProps({ modelValue: { type: Object, required: true } })
 const emit = defineEmits(['update:modelValue'])

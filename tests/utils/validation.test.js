@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { validatePerfume, validateCredentials } from '../src/validation'
+import { validatePerfume, validateCredentials } from '@/utils/validation'
 
 const valid = { name: 'Santal 33', brand: 'Le Labo', concentration: 'EAU_DE_PARFUM', family: 'WOODY' }
 

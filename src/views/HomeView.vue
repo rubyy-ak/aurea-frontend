@@ -1,10 +1,10 @@
 <script setup>
 import { onMounted, ref, computed } from 'vue'
-import { perfumeApi } from '../api'
-import { session } from '../auth'
-import { fetchWeather } from '../weather'
-import SuggestionCard from '../components/SuggestionCard.vue'
-import PerfumeList from '../components/PerfumeList.vue'
+import { perfumeApi } from '@/services/perfumeService'
+import { session } from '@/stores/session'
+import { fetchWeather } from '@/services/weatherService'
+import SuggestionCard from '@/components/home/SuggestionCard.vue'
+import PerfumeList from '@/components/perfume/PerfumeList.vue'
 
 const suggestion = ref(null)
 const recent = ref([])

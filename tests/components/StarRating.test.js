@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import StarRating from '../src/components/StarRating.vue'
+import StarRating from '@/components/common/StarRating.vue'
 
 describe('StarRating', () => {
   it('füllt so viele Sterne wie die Bewertung', () => {

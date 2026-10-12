@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import PerfumeFilters from '../src/components/PerfumeFilters.vue'
+import PerfumeFilters from '@/components/perfume/PerfumeFilters.vue'
 
 const base = { q: '', family: '', sort: '', favorite: false }
 

@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import { FAMILIES } from '../labels'
+import { FAMILIES } from '@/utils/labels'
 
 /** Dekorativer Flakon, eingefärbt nach Duftfamilie – ersetzt Produktfotos. */
 const props = defineProps({

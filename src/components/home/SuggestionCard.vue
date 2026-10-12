@@ -1,6 +1,6 @@
 <script setup>
-import FamilyBadge from './FamilyBadge.vue'
-import BottleArt from './BottleArt.vue'
+import FamilyBadge from '@/components/perfume/FamilyBadge.vue'
+import BottleArt from '@/components/perfume/BottleArt.vue'
 
 defineProps({ suggestion: { type: Object, required: true } })
 </script>

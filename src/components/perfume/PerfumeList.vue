@@ -1,5 +1,5 @@
 <script setup>
-import PerfumeCard from './PerfumeCard.vue'
+import PerfumeCard from '@/components/perfume/PerfumeCard.vue'
 
 defineProps({ perfumes: { type: Array, required: true } })
 const emit = defineEmits(['purchase'])

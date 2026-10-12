@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import { createRouter, createMemoryHistory } from 'vue-router'
-import LoginView from '../src/views/LoginView.vue'
-import { session, clearSession } from '../src/auth'
+import LoginView from '@/views/LoginView.vue'
+import { session, clearSession } from '@/stores/session'
 
 function setup() {
   const router = createRouter({

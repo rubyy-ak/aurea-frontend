@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { request, perfumeApi, ApiError, API_URL } from '../src/api'
-import { session, setSession, clearSession } from '../src/auth'
+import { request, ApiError, API_URL } from '@/services/apiClient'
+import { perfumeApi } from '@/services/perfumeService'
+import { session, setSession, clearSession } from '@/stores/session'
 
 function mockFetch(status, body) {
   const fetch = vi.fn().mockResolvedValue({

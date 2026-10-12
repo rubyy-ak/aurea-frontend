@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import AppHeader from './components/AppHeader.vue'
+import AppHeader from '@/components/layout/AppHeader.vue'
 
 const route = useRoute()
 const isPublic = computed(() => route.meta.public)

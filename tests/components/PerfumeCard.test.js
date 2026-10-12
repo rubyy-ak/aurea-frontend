@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import PerfumeCard from '../src/components/PerfumeCard.vue'
-import { testRouter, samplePerfume } from './helpers'
+import PerfumeCard from '@/components/perfume/PerfumeCard.vue'
+import { testRouter, samplePerfume } from '../helpers'
 
 const mountCard = (perfume) =>
   mount(PerfumeCard, { props: { perfume }, global: { plugins: [testRouter()] } })

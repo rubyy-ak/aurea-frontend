@@ -1,11 +1,11 @@
 <script setup>
 import { ref, watch, computed, onMounted } from 'vue'
-import { perfumeApi } from '../api'
-import { usePerfumeActions } from '../usePerfumeActions'
-import PerfumeList from '../components/PerfumeList.vue'
-import PerfumeFilters from '../components/PerfumeFilters.vue'
-import EmptyState from '../components/EmptyState.vue'
-import Toast from '../components/Toast.vue'
+import { perfumeApi } from '@/services/perfumeService'
+import { usePerfumeActions } from '@/composables/usePerfumeActions'
+import PerfumeList from '@/components/perfume/PerfumeList.vue'
+import PerfumeFilters from '@/components/perfume/PerfumeFilters.vue'
+import EmptyState from '@/components/common/EmptyState.vue'
+import Toast from '@/components/common/Toast.vue'
 
 /** Gemeinsame Ansicht für Sammlung (OWNED) und Wunschliste (WISHLIST). */
 const props = defineProps({ status: { type: String, required: true } })

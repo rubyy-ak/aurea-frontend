@@ -1,4 +1,4 @@
-import { session, clearSession } from './auth'
+import { session, clearSession } from '@/stores/session'
 
 export const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8080').replace(/\/$/, '')
 
@@ -48,24 +48,4 @@ export async function request(path, { method = 'GET', body, params } = {}) {
     throw new ApiError(response.status, data?.message ?? 'Etwas ist schiefgelaufen.', data?.fieldErrors ?? {})
   }
   return data
-}
-
-export const authApi = {
-  register: (username, password) => request('/api/auth/register', { method: 'POST', body: { username, password } }),
-  login: (username, password) => request('/api/auth/login', { method: 'POST', body: { username, password } }),
-  logout: () => request('/api/auth/logout', { method: 'POST' }),
-}
-
-export const exampleApi = {
-  list: () => request('/api/examples'),
-}
-
-export const perfumeApi = {
-  list: (params) => request('/api/perfumes', { params }),
-  get: (id) => request(`/api/perfumes/${id}`),
-  create: (perfume) => request('/api/perfumes', { method: 'POST', body: perfume }),
-  update: (id, perfume) => request(`/api/perfumes/${id}`, { method: 'PUT', body: perfume }),
-  remove: (id) => request(`/api/perfumes/${id}`, { method: 'DELETE' }),
-  purchase: (id) => request(`/api/perfumes/${id}/purchase`, { method: 'POST' }),
-  suggestion: (weather) => request('/api/perfumes/suggestion', { params: weather ?? {} }),
 }

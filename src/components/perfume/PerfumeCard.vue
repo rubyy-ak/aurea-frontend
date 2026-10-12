@@ -1,9 +1,9 @@
 <script setup>
 import { computed } from 'vue'
-import { CONCENTRATIONS, formatEuro } from '../labels'
-import FamilyBadge from './FamilyBadge.vue'
-import StarRating from './StarRating.vue'
-import BottleArt from './BottleArt.vue'
+import { CONCENTRATIONS, formatEuro } from '@/utils/labels'
+import FamilyBadge from '@/components/perfume/FamilyBadge.vue'
+import StarRating from '@/components/common/StarRating.vue'
+import BottleArt from '@/components/perfume/BottleArt.vue'
 
 const props = defineProps({ perfume: { type: Object, required: true } })
 const emit = defineEmits(['purchase'])

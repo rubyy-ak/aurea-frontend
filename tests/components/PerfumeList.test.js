@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import PerfumeList from '../src/components/PerfumeList.vue'
-import PerfumeCard from '../src/components/PerfumeCard.vue'
-import { testRouter, samplePerfume } from './helpers'
+import PerfumeList from '@/components/perfume/PerfumeList.vue'
+import PerfumeCard from '@/components/perfume/PerfumeCard.vue'
+import { testRouter, samplePerfume } from '../helpers'
 
 describe('PerfumeList', () => {
   it('rendert pro Parfüm eine Karte (v-for)', () => {

@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { fetchWeather } from '../src/weather'
-import { perfumeApi, API_URL } from '../src/api'
+import { fetchWeather } from '@/services/weatherService'
+import { perfumeApi } from '@/services/perfumeService'
+import { API_URL } from '@/services/apiClient'
 
 const okResponse = (body) => ({ ok: true, status: 200, json: () => Promise.resolve(body) })
 

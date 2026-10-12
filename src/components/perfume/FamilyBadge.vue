@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import { FAMILIES } from '../labels'
+import { FAMILIES } from '@/utils/labels'
 
 const props = defineProps({ family: { type: String, required: true } })
 const info = computed(() => FAMILIES[props.family] ?? { label: props.family, color: '#999' })
