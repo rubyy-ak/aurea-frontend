@@ -62,9 +62,6 @@ export const perfumeApi = {
   create: (perfume) => request('/api/perfumes', { method: 'POST', body: perfume }),
   update: (id, perfume) => request(`/api/perfumes/${id}`, { method: 'PUT', body: perfume }),
   remove: (id) => request(`/api/perfumes/${id}`, { method: 'DELETE' }),
-  toggleFavorite: (id) => request(`/api/perfumes/${id}/favorite`, { method: 'POST' }),
-  wear: (id) => request(`/api/perfumes/${id}/wear`, { method: 'POST' }),
   purchase: (id) => request(`/api/perfumes/${id}/purchase`, { method: 'POST' }),
   suggestion: () => request('/api/perfumes/suggestion'),
-  stats: () => request('/api/stats'),
 }

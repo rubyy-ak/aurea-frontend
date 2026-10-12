@@ -6,7 +6,6 @@ import LoginView from './views/LoginView.vue'
 import ShelfView from './views/ShelfView.vue'
 import PerfumeFormView from './views/PerfumeFormView.vue'
 import PerfumeDetailView from './views/PerfumeDetailView.vue'
-import StatsView from './views/StatsView.vue'
 
 export const routes = [
   { path: '/', name: 'home', component: HomeView },
@@ -16,7 +15,6 @@ export const routes = [
   { path: '/perfumes/new', name: 'perfume-new', component: PerfumeFormView },
   { path: '/perfumes/:id', name: 'perfume-detail', component: PerfumeDetailView, props: true },
   { path: '/perfumes/:id/edit', name: 'perfume-edit', component: PerfumeFormView, props: true },
-  { path: '/stats', name: 'stats', component: StatsView },
   { path: '/:pathMatch(.*)*', redirect: '/' },
 ]
 

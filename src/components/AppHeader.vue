@@ -11,7 +11,6 @@ const links = [
   { to: '/', label: 'Start' },
   { to: '/collection', label: 'Sammlung' },
   { to: '/wishlist', label: 'Wunschliste' },
-  { to: '/stats', label: 'Statistik' },
 ]
 
 async function logout() {

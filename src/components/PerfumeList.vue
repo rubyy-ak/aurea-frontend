@@ -2,7 +2,7 @@
 import PerfumeCard from './PerfumeCard.vue'
 
 defineProps({ perfumes: { type: Array, required: true } })
-const emit = defineEmits(['toggle-favorite', 'wear', 'purchase'])
+const emit = defineEmits(['purchase'])
 </script>
 
 <template>
@@ -11,8 +11,6 @@ const emit = defineEmits(['toggle-favorite', 'wear', 'purchase'])
       v-for="perfume in perfumes"
       :key="perfume.id"
       :perfume="perfume"
-      @toggle-favorite="emit('toggle-favorite', $event)"
-      @wear="emit('wear', $event)"
       @purchase="emit('purchase', $event)"
     />
   </TransitionGroup>

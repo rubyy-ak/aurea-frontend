@@ -6,7 +6,7 @@ import StarRating from './StarRating.vue'
 import BottleArt from './BottleArt.vue'
 
 const props = defineProps({ perfume: { type: Object, required: true } })
-const emit = defineEmits(['toggle-favorite', 'wear', 'purchase'])
+const emit = defineEmits(['purchase'])
 
 const isWish = computed(() => props.perfume.status === 'WISHLIST')
 const concentration = computed(() => CONCENTRATIONS[props.perfume.concentration]?.short)
@@ -14,15 +14,6 @@ const concentration = computed(() => CONCENTRATIONS[props.perfume.concentration]
 
 <template>
   <article class="perfume-card card">
-    <button
-      class="fav"
-      :class="{ active: perfume.favorite }"
-      :aria-label="perfume.favorite ? 'Aus Favoriten entfernen' : 'Als Favorit markieren'"
-      @click="emit('toggle-favorite', perfume)"
-    >
-      {{ perfume.favorite ? '♥' : '♡' }}
-    </button>
-
     <RouterLink :to="`/perfumes/${perfume.id}`" class="body">
       <div class="art">
         <BottleArt :family="perfume.family" :initial="perfume.brand.charAt(0)" />
@@ -39,14 +30,9 @@ const concentration = computed(() => CONCENTRATIONS[props.perfume.concentration]
       </div>
     </RouterLink>
 
-    <footer class="actions">
-      <template v-if="isWish">
-        <button class="btn btn-ghost btn-sm" @click="emit('purchase', perfume)">Gekauft ✓</button>
-      </template>
-      <template v-else>
-        <span class="worn muted">{{ perfume.wearCount }}× getragen</span>
-        <button class="btn btn-ghost btn-sm" @click="emit('wear', perfume)">Heute getragen</button>
-      </template>
+    <footer v-if="isWish" class="actions">
+      <span class="muted hint">Auf der Wunschliste</span>
+      <button class="btn btn-ghost btn-sm" @click="emit('purchase', perfume)">Gekauft ✓</button>
     </footer>
   </article>
 </template>
@@ -82,23 +68,5 @@ const concentration = computed(() => CONCENTRATIONS[props.perfume.concentration]
   padding: 14px 24px;
   border-top: 1px solid var(--line);
 }
-.actions .btn:only-child { margin-left: auto; }
-.worn { font-size: 0.82rem; white-space: nowrap; }
-.fav {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  z-index: 1;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 1px solid var(--line);
-  background: var(--paper);
-  color: var(--muted);
-  font-size: 1.05rem;
-  cursor: pointer;
-  transition: color 0.2s, border-color 0.2s, transform 0.2s;
-}
-.fav:hover { transform: scale(1.08); border-color: var(--rose); }
-.fav.active { color: var(--rose); border-color: var(--rose); }
+.hint { font-size: 0.82rem; white-space: nowrap; }
 </style>

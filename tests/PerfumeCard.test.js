@@ -16,27 +16,20 @@ describe('PerfumeCard', () => {
     expect(wrapper.text()).toMatch(/325,00\s€/)
   })
 
-  it('meldet "Heute getragen" für Parfüms aus der Sammlung', async () => {
-    const perfume = samplePerfume()
-    const wrapper = mountCard(perfume)
-    await wrapper.find('.actions button').trigger('click')
-    expect(wrapper.emitted('wear')[0]).toEqual([perfume])
-    expect(wrapper.text()).toContain('2× getragen')
+  it('verlinkt auf die Detailseite', () => {
+    const wrapper = mountCard(samplePerfume({ id: 42 }))
+    expect(wrapper.find('a').attributes('href')).toBe('/perfumes/42')
   })
 
-  it('bietet "Gekauft" für Wunschlisten-Parfüms', async () => {
+  it('zeigt bei Parfüms aus der Sammlung keinen Kaufen-Knopf', () => {
+    const wrapper = mountCard(samplePerfume())
+    expect(wrapper.find('.actions').exists()).toBe(false)
+  })
+
+  it('meldet "Gekauft" für Wunschlisten-Parfüms', async () => {
     const perfume = samplePerfume({ status: 'WISHLIST' })
     const wrapper = mountCard(perfume)
-    expect(wrapper.text()).not.toContain('Heute getragen')
     await wrapper.find('.actions button').trigger('click')
     expect(wrapper.emitted('purchase')[0]).toEqual([perfume])
-  })
-
-  it('schaltet den Favoriten-Status um', async () => {
-    const wrapper = mountCard(samplePerfume({ favorite: true }))
-    const fav = wrapper.find('.fav')
-    expect(fav.classes()).toContain('active')
-    await fav.trigger('click')
-    expect(wrapper.emitted('toggle-favorite')).toHaveLength(1)
   })
 })

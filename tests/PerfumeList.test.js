@@ -18,9 +18,9 @@ describe('PerfumeList', () => {
   })
 
   it('reicht Ereignisse der Karten weiter', async () => {
-    const perfume = samplePerfume()
+    const perfume = samplePerfume({ status: 'WISHLIST' })
     const wrapper = mount(PerfumeList, { props: { perfumes: [perfume] }, global: { plugins: [testRouter()] } })
-    await wrapper.find('.fav').trigger('click')
-    expect(wrapper.emitted('toggle-favorite')[0]).toEqual([perfume])
+    await wrapper.find('.actions button').trigger('click')
+    expect(wrapper.emitted('purchase')[0]).toEqual([perfume])
   })
 })

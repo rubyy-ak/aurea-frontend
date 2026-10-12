@@ -24,7 +24,6 @@ export const SORTS = {
   '': 'Zuletzt hinzugefügt',
   name: 'Marke A–Z',
   rating: 'Beste Bewertung',
-  worn: 'Am häufigsten getragen',
   price: 'Höchster Preis',
 }
 
@@ -39,9 +38,4 @@ export function concentrationLabel(key) {
 const euro = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' })
 export function formatEuro(value) {
   return value === null || value === undefined ? '–' : euro.format(value)
-}
-
-export function formatDate(iso) {
-  if (!iso) return 'noch nie'
-  return new Date(iso + 'T00:00:00').toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' })
 }

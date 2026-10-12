@@ -47,13 +47,13 @@ describe('api', () => {
   it('meldet bei 401 ab', async () => {
     setSession({ token: 'abgelaufen', username: 'camille' })
     mockFetch(401, { message: 'Bitte melde dich an.' })
-    await request('/api/stats').catch(() => {})
+    await request('/api/perfumes').catch(() => {})
     expect(session.loggedIn).toBe(false)
   })
 
   it('übersetzt Netzwerkfehler in eine verständliche Meldung', async () => {
     vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new TypeError('Failed to fetch')))
-    const error = await request('/api/stats').catch((e) => e)
+    const error = await request('/api/perfumes').catch((e) => e)
     expect(error.status).toBe(0)
     expect(error.message).toContain('nicht erreichbar')
   })

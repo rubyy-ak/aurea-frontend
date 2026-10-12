@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import PerfumeFilters from '../src/components/PerfumeFilters.vue'
 
-const base = { q: '', family: '', sort: '', favorite: false }
+const base = { q: '', family: '', sort: '' }
 
 describe('PerfumeFilters', () => {
   it('meldet geänderte Suche und behält die übrigen Filter', async () => {
@@ -17,9 +17,9 @@ describe('PerfumeFilters', () => {
     expect(options).toHaveLength(12) // "Alle" + 11 Familien
   })
 
-  it('filtert auf Favoriten', async () => {
+  it('meldet eine geänderte Sortierung', async () => {
     const wrapper = mount(PerfumeFilters, { props: { modelValue: base } })
-    await wrapper.find('input[type=checkbox]').setValue(true)
-    expect(wrapper.emitted('update:modelValue').at(-1)[0].favorite).toBe(true)
+    await wrapper.findAll('select')[1].setValue('name')
+    expect(wrapper.emitted('update:modelValue').at(-1)[0].sort).toBe('name')
   })
 })

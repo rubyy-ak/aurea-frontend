@@ -2,7 +2,7 @@
 import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { perfumeApi } from '../api'
-import { concentrationLabel, formatEuro, formatDate } from '../labels'
+import { concentrationLabel, formatEuro } from '../labels'
 import { usePerfumeActions } from '../usePerfumeActions'
 import FamilyBadge from '../components/FamilyBadge.vue'
 import StarRating from '../components/StarRating.vue'
@@ -19,7 +19,7 @@ const loading = ref(true)
 const error = ref('')
 const confirmOpen = ref(false)
 
-const { notice, toggleFavorite, wear, purchase } = usePerfumeActions(list)
+const { notice, purchase } = usePerfumeActions(list)
 
 const pyramid = computed(() => [
   { label: 'Kopfnote', hint: 'die ersten Minuten', value: perfume.value?.topNotes },
@@ -77,8 +77,7 @@ async function remove() {
         <dl class="facts">
           <div><dt>Größe</dt><dd>{{ perfume.sizeMl ? `${perfume.sizeMl} ml` : '–' }}</dd></div>
           <div><dt>Preis</dt><dd>{{ formatEuro(perfume.priceEur) }}</dd></div>
-          <div v-if="perfume.status === 'OWNED'"><dt>Getragen</dt><dd>{{ perfume.wearCount }}×</dd></div>
-          <div v-if="perfume.status === 'OWNED'"><dt>Zuletzt</dt><dd>{{ formatDate(perfume.lastWornOn) }}</dd></div>
+          <div><dt>Bewertung</dt><dd>{{ perfume.rating ? `${perfume.rating} / 5` : '–' }}</dd></div>
         </dl>
 
         <section class="pyramid">
@@ -90,11 +89,7 @@ async function remove() {
         </section>
 
         <div class="actions">
-          <button v-if="perfume.status === 'OWNED'" class="btn" @click="wear(perfume)">Heute getragen</button>
-          <button v-else class="btn" @click="purchase(perfume)">Gekauft – in die Sammlung</button>
-          <button class="btn btn-ghost" @click="toggleFavorite(perfume)">
-            {{ perfume.favorite ? '♥ Favorit' : '♡ Favorisieren' }}
-          </button>
+          <button v-if="perfume.status === 'WISHLIST'" class="btn" @click="purchase(perfume)">Gekauft – in die Sammlung</button>
           <RouterLink :to="`/perfumes/${perfume.id}/edit`" class="btn btn-ghost">Bearbeiten</RouterLink>
           <button class="btn btn-danger" @click="confirmOpen = true">Löschen</button>
         </div>
@@ -131,7 +126,7 @@ h1 { margin-top: 6px; font-size: clamp(2.6rem, 5vw, 3.8rem); }
 .badges { display: flex; align-items: center; gap: 18px; margin-top: 16px; flex-wrap: wrap; }
 .wish-tag { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: var(--gold-soft); color: var(--gold-deep); }
 .divider { margin: 28px 0; }
-.facts { display: grid; grid-template-columns: repeat(4, auto); gap: 24px; margin: 0 0 36px; justify-content: start; }
+.facts { display: grid; grid-template-columns: repeat(3, auto); gap: 24px; margin: 0 0 36px; justify-content: start; }
 .facts dt { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
 .facts dd { margin: 4px 0 0; font-family: var(--font-display); font-size: 1.4rem; }
 .pyramid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 36px; }

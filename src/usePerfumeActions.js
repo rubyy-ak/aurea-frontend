@@ -2,7 +2,7 @@ import { ref } from 'vue'
 import { perfumeApi } from './api'
 
 /**
- * Gemeinsame Aktionen für Parfüm-Karten (Favorit, Tragen, Kaufen).
+ * "Gekauft"-Aktion für Wunschlisten-Parfüms inkl. kurzer Rückmeldung.
  * Aktualisiert die übergebene Liste direkt, ohne alles neu zu laden.
  */
 export function usePerfumeActions(list, { removeOnPurchase = false } = {}) {
@@ -15,41 +15,22 @@ export function usePerfumeActions(list, { removeOnPurchase = false } = {}) {
     timer = setTimeout(() => (notice.value = ''), 3000)
   }
 
-  function replace(updated) {
-    const index = list.value.findIndex((p) => p.id === updated.id)
-    if (index !== -1) list.value[index] = updated
-  }
-
-  async function run(action) {
+  async function purchase(perfume) {
+    let updated
     try {
-      const updated = await action()
-      return updated
+      updated = await perfumeApi.purchase(perfume.id)
     } catch (e) {
       flash(e.message)
-      return null
+      return
     }
-  }
-
-  async function toggleFavorite(perfume) {
-    const updated = await run(() => perfumeApi.toggleFavorite(perfume.id))
-    if (updated) replace(updated)
-  }
-
-  async function wear(perfume) {
-    const updated = await run(() => perfumeApi.wear(perfume.id))
-    if (updated) {
-      replace(updated)
-      flash(`${updated.name} – viel Freude damit heute ✦`)
+    if (removeOnPurchase) {
+      list.value = list.value.filter((p) => p.id !== updated.id)
+    } else {
+      const index = list.value.findIndex((p) => p.id === updated.id)
+      if (index !== -1) list.value[index] = updated
     }
-  }
-
-  async function purchase(perfume) {
-    const updated = await run(() => perfumeApi.purchase(perfume.id))
-    if (!updated) return
-    if (removeOnPurchase) list.value = list.value.filter((p) => p.id !== updated.id)
-    else replace(updated)
     flash(`${updated.name} ist jetzt in deiner Sammlung.`)
   }
 
-  return { notice, toggleFavorite, wear, purchase }
+  return { notice, purchase }
 }

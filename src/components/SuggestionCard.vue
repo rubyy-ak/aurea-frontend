@@ -3,7 +3,6 @@ import FamilyBadge from './FamilyBadge.vue'
 import BottleArt from './BottleArt.vue'
 
 defineProps({ suggestion: { type: Object, required: true } })
-const emit = defineEmits(['wear'])
 </script>
 
 <template>
@@ -14,13 +13,11 @@ const emit = defineEmits(['wear'])
         Berlin · {{ Math.round(suggestion.temperatureC) }} °C<template v-if="suggestion.weather">, {{ suggestion.weather }}</template>
       </p>
       <template v-if="suggestion.perfume">
-        <h2>
-          <RouterLink :to="`/perfumes/${suggestion.perfume.id}`">{{ suggestion.perfume.name }}</RouterLink>
-        </h2>
+        <h2>{{ suggestion.perfume.name }}</h2>
         <p class="brand">{{ suggestion.perfume.brand }}</p>
         <FamilyBadge :family="suggestion.perfume.family" />
         <p class="reason">{{ suggestion.reason }}</p>
-        <button class="btn" @click="emit('wear', suggestion.perfume)">Heute tragen</button>
+        <RouterLink :to="`/perfumes/${suggestion.perfume.id}`" class="btn">Details ansehen</RouterLink>
       </template>
       <template v-else>
         <h2>Noch kein Flakon im Regal</h2>
@@ -48,7 +45,6 @@ const emit = defineEmits(['wear'])
 .eyebrow { color: var(--gold); }
 .weather { margin: 10px 0 18px; font-size: 0.9rem; color: #cfc4b6; }
 h2 { font-size: clamp(2.2rem, 4.5vw, 3.2rem); font-style: italic; }
-h2 a:hover { color: var(--gold); }
 .brand { letter-spacing: 0.2em; text-transform: uppercase; font-size: 0.8rem; margin: 6px 0 14px; color: #cfc4b6; }
 .suggestion :deep(.badge) { color: #e8dfd3; }
 .reason { margin: 18px 0 26px; max-width: 42ch; color: #e8dfd3; }

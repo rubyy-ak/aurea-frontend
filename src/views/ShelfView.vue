@@ -13,12 +13,12 @@ const props = defineProps({ status: { type: String, required: true } })
 const perfumes = ref([])
 const loading = ref(true)
 const error = ref('')
-const filters = ref({ q: '', family: '', sort: '', favorite: false })
+const filters = ref({ q: '', family: '', sort: '' })
 
 const isWishlist = computed(() => props.status === 'WISHLIST')
-const hasFilters = computed(() => filters.value.q || filters.value.family || filters.value.favorite)
+const hasFilters = computed(() => filters.value.q || filters.value.family)
 
-const { notice, toggleFavorite, wear, purchase } = usePerfumeActions(perfumes, { removeOnPurchase: true })
+const { notice, purchase } = usePerfumeActions(perfumes, { removeOnPurchase: true })
 
 async function load() {
   error.value = ''
@@ -28,7 +28,6 @@ async function load() {
       q: filters.value.q,
       family: filters.value.family,
       sort: filters.value.sort,
-      favorite: filters.value.favorite || undefined,
     })
   } catch (e) {
     error.value = e.message
@@ -78,13 +77,7 @@ onMounted(load)
         Jetzt hinzufügen
       </RouterLink>
     </EmptyState>
-    <PerfumeList
-      v-else
-      :perfumes="perfumes"
-      @toggle-favorite="toggleFavorite"
-      @wear="wear"
-      @purchase="purchase"
-    />
+    <PerfumeList v-else :perfumes="perfumes" @purchase="purchase" />
 
     <Toast :message="notice" />
   </div>
