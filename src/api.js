@@ -67,5 +67,5 @@ export const perfumeApi = {
   update: (id, perfume) => request(`/api/perfumes/${id}`, { method: 'PUT', body: perfume }),
   remove: (id) => request(`/api/perfumes/${id}`, { method: 'DELETE' }),
   purchase: (id) => request(`/api/perfumes/${id}/purchase`, { method: 'POST' }),
-  suggestion: () => request('/api/perfumes/suggestion'),
+  suggestion: (weather) => request('/api/perfumes/suggestion', { params: weather ?? {} }),
 }

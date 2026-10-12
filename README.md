@@ -25,7 +25,7 @@ Voraussetzung: Node 24. Das Backend muss laufen (Standard: `http://localhost:808
 ```bash
 npm install
 npm run dev      # http://localhost:5173
-npm test         # 31 Tests
+npm test         # 36 Tests
 ```
 
 Die Backend-URL kommt aus der Umgebungsvariablen `VITE_API_URL` (siehe `.env.example`).

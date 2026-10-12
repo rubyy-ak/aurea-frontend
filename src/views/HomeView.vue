@@ -2,6 +2,7 @@
 import { onMounted, ref, computed } from 'vue'
 import { perfumeApi } from '../api'
 import { session } from '../auth'
+import { fetchWeather } from '../weather'
 import SuggestionCard from '../components/SuggestionCard.vue'
 import PerfumeList from '../components/PerfumeList.vue'
 
@@ -17,7 +18,9 @@ const greeting = computed(() => {
 
 onMounted(async () => {
   try {
-    const [s, list] = await Promise.all([perfumeApi.suggestion(), perfumeApi.list({ status: 'OWNED' })])
+    // Wetter holt der Browser selbst – klappt das nicht, fragt das Backend nach.
+    const loadSuggestion = fetchWeather().then((weather) => perfumeApi.suggestion(weather))
+    const [s, list] = await Promise.all([loadSuggestion, perfumeApi.list({ status: 'OWNED' })])
     suggestion.value = s
     recent.value = list.slice(0, 4)
   } catch (e) {
