@@ -14,6 +14,7 @@ const concentration = computed(() => CONCENTRATIONS[props.perfume.concentration]
 
 <template>
   <article class="perfume-card card">
+    <span v-if="perfume.favorite" class="fav" title="Favorit" aria-label="Favorit">♥</span>
     <RouterLink :to="`/perfumes/${perfume.id}`" class="body">
       <div class="art">
         <BottleArt :family="perfume.family" :initial="perfume.brand.charAt(0)" />
@@ -67,6 +68,21 @@ const concentration = computed(() => CONCENTRATIONS[props.perfume.concentration]
   gap: 8px;
   padding: 14px 24px;
   border-top: 1px solid var(--line);
+}
+.fav {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--rose);
+  background: var(--paper);
+  color: var(--rose);
+  font-size: 0.95rem;
 }
 .hint { font-size: 0.82rem; white-space: nowrap; }
 </style>

@@ -23,6 +23,7 @@ const form = ref({
   priceEur: '',
   rating: null,
   status: route.query.status === 'WISHLIST' ? 'WISHLIST' : 'OWNED',
+  favorite: false,
 })
 const errors = ref({})
 const message = ref('')
@@ -63,6 +64,7 @@ function toPayload(f) {
     priceEur: empty(f.priceEur) ? null : Number(String(f.priceEur).replace(',', '.')),
     rating: f.rating,
     status: f.status,
+    favorite: f.favorite,
   }
 }
 
@@ -182,6 +184,10 @@ async function submit() {
         </div>
       </div>
 
+      <label class="check">
+        <input v-model="form.favorite" type="checkbox" /> <span class="heart">♥</span> Als Favorit markieren
+      </label>
+
       <div class="buttons">
         <button type="button" class="btn btn-ghost" @click="router.back()">Abbrechen</button>
         <button type="submit" class="btn" :disabled="busy">
@@ -212,6 +218,9 @@ async function submit() {
 .status-switch label.active { background: var(--ink); color: var(--paper); }
 .status-switch input { position: absolute; opacity: 0; pointer-events: none; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.check { display: flex; align-items: center; gap: 10px; cursor: pointer; width: fit-content; }
+.check input { accent-color: var(--gold-deep); width: 16px; height: 16px; }
+.heart { color: var(--rose); }
 .buttons { display: flex; justify-content: flex-end; gap: 12px; padding-top: 8px; border-top: 1px solid var(--line); flex-wrap: wrap; }
 .buttons .btn { margin-top: 16px; }
 @media (max-width: 720px) {

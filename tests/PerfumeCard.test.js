@@ -16,6 +16,11 @@ describe('PerfumeCard', () => {
     expect(wrapper.text()).toMatch(/325,00\s€/)
   })
 
+  it('markiert Favoriten mit einem Herz', () => {
+    expect(mountCard(samplePerfume({ favorite: true })).find('.fav').exists()).toBe(true)
+    expect(mountCard(samplePerfume({ favorite: false })).find('.fav').exists()).toBe(false)
+  })
+
   it('verlinkt auf die Detailseite', () => {
     const wrapper = mountCard(samplePerfume({ id: 42 }))
     expect(wrapper.find('a').attributes('href')).toBe('/perfumes/42')

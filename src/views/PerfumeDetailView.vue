@@ -69,6 +69,7 @@ async function remove() {
         <div class="badges">
           <FamilyBadge :family="perfume.family" />
           <StarRating v-if="perfume.rating" :model-value="perfume.rating" readonly />
+          <span v-if="perfume.favorite" class="fav-tag">♥ Favorit</span>
           <span v-if="perfume.status === 'WISHLIST'" class="wish-tag">Wunschliste</span>
         </div>
 
@@ -125,6 +126,7 @@ h1 { margin-top: 6px; font-size: clamp(2.6rem, 5vw, 3.8rem); }
 .concentration { font-family: var(--font-display); font-style: italic; font-size: 1.3rem; color: var(--muted); margin-top: 4px; }
 .badges { display: flex; align-items: center; gap: 18px; margin-top: 16px; flex-wrap: wrap; }
 .wish-tag { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: var(--gold-soft); color: var(--gold-deep); }
+.fav-tag { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: #f6e6e6; color: #a5605f; }
 .divider { margin: 28px 0; }
 .facts { display: grid; grid-template-columns: repeat(3, auto); gap: 24px; margin: 0 0 36px; justify-content: start; }
 .facts dt { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }

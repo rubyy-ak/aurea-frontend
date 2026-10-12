@@ -21,6 +21,7 @@ export const samplePerfume = (overrides = {}) => ({
   priceEur: 325,
   rating: 5,
   status: 'OWNED',
+  favorite: false,
   createdAt: '2026-10-01T10:00:00Z',
   ...overrides,
 })

@@ -26,17 +26,31 @@ function update(key, value) {
     <select class="select" :value="modelValue.sort" aria-label="Sortierung" @change="update('sort', $event.target.value)">
       <option v-for="(label, key) in SORTS" :key="key" :value="key">{{ label }}</option>
     </select>
+    <label class="fav-toggle">
+      <input type="checkbox" :checked="modelValue.favorite" @change="update('favorite', $event.target.checked)" />
+      <span>♥ Nur Favoriten</span>
+    </label>
   </div>
 </template>
 
 <style scoped>
 .filters {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr auto;
   gap: 12px;
   align-items: center;
   margin-bottom: 32px;
 }
+.fav-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 0 4px;
+}
+.fav-toggle input { accent-color: var(--gold-deep); width: 16px; height: 16px; }
 @media (max-width: 800px) {
   .filters { grid-template-columns: 1fr 1fr; }
   .search { grid-column: 1 / -1; }
