@@ -27,6 +27,10 @@ describe('validateCredentials', () => {
     expect(validateCredentials({ username: 'camille', password: 'lang-genug' }, 'register')).toEqual({})
   })
 
+  it('erlaubt eine E-Mail-Adresse als Benutzernamen', () => {
+    expect(validateCredentials({ username: 'rubyyy.ak@icloud.com', password: 'lang-genug' }, 'register')).toEqual({})
+  })
+
   it('prüft das Format des Benutzernamens nur bei der Registrierung', () => {
     expect(validateCredentials({ username: 'a b', password: 'x' }, 'register').username).toBeDefined()
     expect(validateCredentials({ username: 'a b', password: 'x' }, 'login')).toEqual({})

@@ -26,8 +26,8 @@ export function validatePerfume(p) {
 export function validateCredentials({ username, password }, mode) {
   const errors = {}
   if (!username?.trim()) errors.username = 'Bitte einen Benutzernamen angeben.'
-  else if (mode === 'register' && !/^[A-Za-z0-9_.-]{3,30}$/.test(username.trim())) {
-    errors.username = '3–30 Zeichen: Buchstaben, Zahlen, Punkt, Binde- oder Unterstrich.'
+  else if (mode === 'register' && !/^[A-Za-z0-9_.@+-]{3,40}$/.test(username.trim())) {
+    errors.username = '3–40 Zeichen ohne Leerzeichen – z. B. ein Name oder deine E-Mail-Adresse.'
   }
   if (!password) errors.password = 'Bitte ein Passwort angeben.'
   else if (mode === 'register' && (password.length < 8 || password.length > 72)) {

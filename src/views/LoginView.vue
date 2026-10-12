@@ -85,9 +85,10 @@ async function submit() {
         <p v-if="message" class="alert">{{ message }}</p>
 
         <div class="field" :class="{ 'has-error': errors.username }">
-          <label for="username">Benutzername</label>
+          <label for="username">Benutzername oder E-Mail</label>
           <input id="username" v-model="form.username" class="input" autocomplete="username" />
           <span v-if="errors.username" class="field-error">{{ errors.username }}</span>
+          <span v-else-if="isRegister" class="muted hint">Ohne Leerzeichen, z. B. ein Name oder deine E-Mail-Adresse.</span>
         </div>
 
         <div class="field" :class="{ 'has-error': errors.password }">
