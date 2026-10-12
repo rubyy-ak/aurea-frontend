@@ -4,6 +4,8 @@ Vue-3-Oberfläche für **Auréa**, eine Web-App für die eigene Parfümsammlung:
 
 **Backend-Repository:** https://github.com/rubyy-ak/aurea-backend
 
+**Live-App:** https://aurea-frontend-yytz.onrender.com
+
 ## Aufbau
 
 ```
@@ -31,6 +33,6 @@ Die Backend-URL kommt aus der Umgebungsvariablen `VITE_API_URL` (siehe `.env.exa
 ## Deployment auf Render
 
 1. Auf Render **New → Blueprint** wählen und dieses Repository auswählen.
-2. Bei `VITE_API_URL` die URL des Backends eintragen, z. B. `https://aurea-backend.onrender.com`.
+2. Bei `VITE_API_URL` die URL des Backends eintragen, hier `https://aurea-backend-5vbu.onrender.com`.
 
 GitHub Actions führt bei jedem Push die Tests und den Build aus. Render deployt erst, wenn sie grün sind.
