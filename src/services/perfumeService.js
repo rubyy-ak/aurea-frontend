@@ -8,4 +8,5 @@ export const perfumeApi = {
   remove: (id) => request(`/api/perfumes/${id}`, { method: 'DELETE' }),
   purchase: (id) => request(`/api/perfumes/${id}/purchase`, { method: 'POST' }),
   suggestion: (weather) => request('/api/perfumes/suggestion', { params: weather ?? {} }),
+  summary: () => request('/api/perfumes/summary'),
 }
