@@ -7,6 +7,8 @@ import PerfumeFilters from '@/components/perfume/PerfumeFilters.vue'
 import EmptyState from '@/components/common/EmptyState.vue'
 import Toast from '@/components/common/Toast.vue'
 
+import ExpenseSummary from '@/components/perfume/ExpenseSummary.vue'
+
 /** Gemeinsame Ansicht für Sammlung (OWNED) und Wunschliste (WISHLIST). */
 const props = defineProps({ status: { type: String, required: true } })
 
@@ -59,7 +61,7 @@ onMounted(load)
         {{ isWishlist ? '+ Wunsch hinzufügen' : '+ Parfüm hinzufügen' }}
       </RouterLink>
     </header>
-
+        <ExpenseSummary v-if="!isWishlist" />
     <PerfumeFilters v-model="filters" />
 
     <p v-if="loading" class="loading">Einen Moment …</p>
