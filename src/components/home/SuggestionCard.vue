@@ -2,16 +2,23 @@
 import FamilyBadge from '@/components/perfume/FamilyBadge.vue'
 import BottleArt from '@/components/perfume/BottleArt.vue'
 
-defineProps({ suggestion: { type: Object, required: true } })
+defineProps({
+  suggestion: {
+    type: Object,
+    default: null,
+  },
+})
 </script>
 
 <template>
-  <section class="suggestion">
+  <section v-if="suggestion" class="suggestion">
     <div class="text">
       <p class="eyebrow">Dein Duft für heute</p>
-      <p v-if="suggestion.temperatureC !== null" class="weather">
+
+      <p v-if="suggestion.temperatureC != null" class="weather">
         Berlin · {{ Math.round(suggestion.temperatureC) }} °C<template v-if="suggestion.weather">, {{ suggestion.weather }}</template>
       </p>
+
       <template v-if="suggestion.perfume">
         <h2>{{ suggestion.perfume.name }}</h2>
         <p class="brand">{{ suggestion.perfume.brand }}</p>
@@ -19,14 +26,25 @@ defineProps({ suggestion: { type: Object, required: true } })
         <p class="reason">{{ suggestion.reason }}</p>
         <RouterLink :to="`/perfumes/${suggestion.perfume.id}`" class="btn">Details ansehen</RouterLink>
       </template>
+
+      <template v-else-if="suggestion.status === 'NO_MATCH'">
+        <h2>Heute passt nichts perfekt</h2>
+        <p class="reason">{{ suggestion.reason }}</p>
+        <RouterLink to="/collection" class="btn">Zur Sammlung</RouterLink>
+      </template>
+
       <template v-else>
         <h2>Noch kein Flakon im Regal</h2>
         <p class="reason">{{ suggestion.reason }}</p>
         <RouterLink to="/perfumes/new" class="btn">Erstes Parfüm hinzufügen</RouterLink>
       </template>
     </div>
+
     <div v-if="suggestion.perfume" class="art">
-      <BottleArt :family="suggestion.perfume.family" :initial="suggestion.perfume.brand.charAt(0)" />
+      <BottleArt
+        :family="suggestion.perfume.family"
+        :initial="suggestion.perfume.brand.charAt(0)"
+      />
     </div>
   </section>
 </template>
